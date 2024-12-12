@@ -2,6 +2,7 @@
 
 dataset <- read.csv("https://data.austintexas.gov/api/views/hc5t-p62z/rows.csv?accessType=DOWNLOAD")
 
+# Selecting Columns of Interest
 asian_american <- dataset |>
   janitor::clean_names() |>
   dplyr::rename(education = "education_completed",
@@ -35,5 +36,7 @@ asian_american <- dataset |>
     spend_time_together, feel_close, togetherness, close_knit_community, community_trust
     )
 
-
+# Mutating Variables
+asian_american <- asian_american |>
+  dplyr::mutate()
 usethis::use_data(asian_american, overwrite = TRUE)
