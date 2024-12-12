@@ -13,7 +13,7 @@ asian_american <- dataset |>
   dplyr::select (
     # Demographic Information
     survey_id, age, gender, ethnicity, marital_status, education,
-    #House Hold
+    # House Hold
     household_size, no_one, spouse, children, grand_children, parent, grandparent,
     siblings, other_relative, friends, other, other_description,
     # Employment/Salary
@@ -36,7 +36,4 @@ asian_american <- dataset |>
     spend_time_together, feel_close, togetherness, close_knit_community, community_trust
     )
 
-# Mutating Variables
-asian_american <- asian_american |>
-  dplyr::mutate()
 usethis::use_data(asian_american, overwrite = TRUE)
