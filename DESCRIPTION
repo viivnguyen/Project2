@@ -14,9 +14,6 @@ RoxygenNote: 7.3.2
 Imports: 
     devtools,
     dplyr,
-    kaggle,
-    kagglehub,
-    readr,
     roxygen2
 Depends: 
     R (>= 3.5)
