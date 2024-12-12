@@ -2,6 +2,7 @@
 
 dataset <- read.csv("https://data.austintexas.gov/api/views/hc5t-p62z/rows.csv?accessType=DOWNLOAD")
 
+
 # Selecting Columns of Interest
 asian_american <- dataset |>
   janitor::clean_names() |>
@@ -35,5 +36,7 @@ asian_american <- dataset |>
     family_respect, similar_values, successful_family, trust, loyalty, family_pride, expression,
     spend_time_together, feel_close, togetherness, close_knit_community, community_trust
     )
+
+asian_american[asian_american == ""] <- NA
 
 usethis::use_data(asian_american, overwrite = TRUE)
