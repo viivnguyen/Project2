@@ -8,7 +8,7 @@
 #'
 #' @examples
 
-convert_to_ordered_numeric <- function(data, column, level_order = NULL) {
+convert_to_ordered_numeric <- function(data, column, level_order) {
   # Check if the column exists
   if (!column %in% colnames(data)) {
     stop("Column not found in the dataset.")
@@ -23,11 +23,6 @@ convert_to_ordered_numeric <- function(data, column, level_order = NULL) {
   if (is.null(level_order)) {
     # If no custom order provided, use the natural order of unique levels
     level_order <- sort(unique(data[[column]]))
-  }
-
-  # Check if all values in the column exist in the custom order
-  if (!all(unique(data[[column]]) %in% level_order)) {
-    stop("Some levels in the column are missing from the provided level_order.")
   }
 
   # Convert to factor with levels ordered as specified
