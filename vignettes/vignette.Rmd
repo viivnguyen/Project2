@@ -108,3 +108,87 @@ asian_american <- makenumeric(asian_american, "siblings", "Living with brother/s
 # Wrangle data to make living with friends variable binary and numeric
 asian_american <- makenumeric(asian_american, "friends", "Living with other friends/roommates")
 ```
+
+## Step 4: Data Visualization
+
+The `scatter` function provides flexible options for visualizing relationships in the survey data. Let's explore some key relationships using different visualization approaches.
+
+### Income and Education Relationships
+
+First, let's examine how income varies with age across different education levels:
+
+```{r fig.width=8, fig.height=6}
+scatter(asian_american,
+        x = "age",
+        y = "income",
+        color = "education",
+        title = "Income by Age and Education Level",
+        xlab = "Age (years)",
+        ylab = "Annual Income ($)",
+        add_trendline = TRUE)
+```
+
+This visualization reveals patterns in income distribution across age groups and education levels, helping identify potential disparities or trends.
+
+### Quality of Life Metrics
+
+We can also explore how quality of life relates to duration of residency and English proficiency:
+
+```{r fig.width=8, fig.height=6}
+scatter(asian_american,
+        x = "duration_of_residency",
+        y = "quality_of_life",
+        color = "english_speaking",
+        title = "Quality of Life by Duration of Residency",
+        xlab = "Years in US",
+        ylab = "Quality of Life Score",
+        add_trendline = TRUE)
+```
+
+### Faceted Analysis of Well-being Indicators
+
+For a more detailed view, we can create faceted plots to examine multiple aspects of well-being:
+
+```{r fig.width=10, fig.height=8}
+scatter(asian_american,
+        x = "age",
+        y = "life_satisfaction",
+        color = "english_speaking",
+        facet_by = "education",
+        title = "Life Satisfaction Across Education Levels",
+        xlab = "Age",
+        ylab = "Life Satisfaction Score",
+        theme_style = "light")
+```
+
+### Customizing Visualizations
+
+The scatter function offers various customization options:
+
+- `add_trendline`: Add smoothed trend lines with confidence intervals
+- `facet_by`: Create separate plots for different groups
+- `theme_style`: Choose between "light" and "dark" themes
+- `point_alpha`: Adjust point transparency for better visibility of overlapping points
+- `point_size`: Modify point sizes
+
+Here's an example using these features:
+
+```{r fig.width=8, fig.height=6}
+scatter(asian_american,
+        x = "income",
+        y = "achieving_ends_meet",
+        color = "education",
+        title = "Financial Security by Income Level",
+        xlab = "Income",
+        ylab = "Ability to Make Ends Meet",
+        point_alpha = 0.5,
+        point_size = 3,
+        add_trendline = TRUE,
+        theme_style = "dark")
+```
+
+These visualizations help identify patterns and relationships in the survey data, making it easier to:
+
+1. Identify disparities across different demographic groups
+2. Understand the relationship between socioeconomic factors and quality of life
+3. Explore how language proficiency relates to various outcomes
