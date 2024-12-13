@@ -15,6 +15,7 @@ Imports:
     devtools,
     dplyr,
     ggplot2,
+    janitor,
     roxygen2
 Depends: 
     R (>= 3.5)
