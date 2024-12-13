@@ -23,40 +23,6 @@
 #' @return A `ggplot` object representing the scatter plot
 #' @export
 #'
-#' @examples
-#' # Example 1: Mouse trial data
-#' weight_long <- tidyr::pivot_longer(mouse_weight,
-#'                                   cols = c("Body Weight 1", "Body Weight 2", "Body Weight 3"),
-#'                                   names_to = "Measurement",
-#'                                   values_to = "Weight") %>%
-#'   dplyr::left_join(mouse_birth[, c("ID", "Treatment")], by = "ID")
-#'
-#' scatter(weight_long,
-#'         x = "Date_Weight_1",
-#'         y = "Weight",
-#'         color = "Treatment",
-#'         title = "Mouse Weights Over Time")
-#'
-#' # Example 2: Asian American survey data - Income vs Age
-#' scatter(asian_american,
-#'         x = "age",
-#'         y = "income",
-#'         color = "education",
-#'         title = "Income by Age and Education Level",
-#'         xlab = "Age (years)",
-#'         ylab = "Income",
-#'         add_trendline = TRUE)
-#'
-#' # Example 3: Survey data - Life Satisfaction
-#' scatter(asian_american,
-#'         x = "duration_of_residency",
-#'         y = "life_satisfaction",
-#'         color = "english_speaking",
-#'         title = "Life Satisfaction by Duration of Residency",
-#'         xlab = "Years in US",
-#'         ylab = "Life Satisfaction Score",
-#'         facet_by = "education")
-#'
 #' @import ggplot2
 #' @import dplyr
 
@@ -67,14 +33,14 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
                     facet_by = NULL, theme_style = "light", ...) {
 
   # Input validation
-  if (!is.data.frame(data)) {
-    stop("'data' must be a data frame")
+  if (!base::is.data.frame(data)) {
+    base::stop("'data' must be a data frame")
   }
 
   # Check for missing values
-  if (any(is.na(data[[x]])) || any(is.na(data[[y]]))) {
-    warning("Data contains missing values which will be removed")
-    data <- data[complete.cases(data[c(x, y)]), ]
+  if (base::any(base::is.na(data[[x]])) || base::any(base::is.na(data[[y]]))) {
+    base::warning("Data contains missing values which will be removed")
+    data <- data[base::complete.cases(data[c(x, y)]), ]
   }
 
   # Create base plot
@@ -83,7 +49,7 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
     y = .data[[y]]
   )
 
-  if (!is.null(color)) {
+  if (!base::is.null(color)) {
     mapping <- ggplot2::aes(
       x = .data[[x]],
       y = .data[[y]],
@@ -95,8 +61,8 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
     ggplot2::geom_point(size = point_size, alpha = point_alpha, ...) +
     ggplot2::labs(
       title = title,
-      x = ifelse(is.null(xlab), x, xlab),
-      y = ifelse(is.null(ylab), y, ylab),
+      x = base::ifelse(base::is.null(xlab), x, xlab),
+      y = base::ifelse(base::is.null(ylab), y, ylab),
       color = color
     )
 
@@ -106,11 +72,11 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
   }
 
   # Add threshold line if requested
-  if (add_threshold && !is.null(threshold_value)) {
+  if (add_threshold && !base::is.null(threshold_value)) {
     p <- p +
       ggplot2::geom_hline(yintercept = threshold_value, linetype = "dashed", color = "red") +
       ggplot2::annotate("text",
-                        x = min(data[[x]], na.rm = TRUE),
+                        x = base::min(data[[x]], na.rm = TRUE),
                         y = threshold_value,
                         label = threshold_label,
                         vjust = -0.5,
@@ -118,8 +84,8 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
   }
 
   # Add faceting if requested
-  if (!is.null(facet_by)) {
-    p <- p + ggplot2::facet_wrap(as.formula(paste("~", facet_by)))
+  if (!base::is.null(facet_by)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(base::paste("~", facet_by)))
   }
 
   # Apply theme
@@ -140,4 +106,3 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
 
   return(p)
 }
-

@@ -23,25 +23,25 @@
 surveylevels <- function(data, column, ordered_levels) {
 
   # Check if the column exists in the data
-  if (!column %in% colnames(data)) {
-    stop(paste("Column", column, "not found in the dataframe."))
+  if (!base::column %in% base::colnames(data)) {
+    base::stop(base::paste("Column", column, "not found in the dataframe."))
   }
 
   # Extract the column
   col_values <- data[[column]]
 
   # Check if all unique values in the column match the provided levels, excluding NA
-  unique_values <- unique(na.omit(col_values))
-  if (!all(unique_values %in% ordered_levels)) {
-    stop("Some values in the column do not match the provided ordered levels.")
+  unique_values <- base::unique(stats::na.omit(col_values))
+  if (!base::all(unique_values %in% ordered_levels)) {
+    base::stop("Some values in the column do not match the provided ordered levels.")
   }
 
   # Convert the column to numeric without altering row order
-  data[[column]] <- as.numeric(factor(col_values, levels = ordered_levels))
+  data[[column]] <- base::as.numeric(base::factor(col_values, levels = ordered_levels))
 
   # Print the mapping for transparency
-  cat("Level mapping:\n")
-  print(setNames(seq_along(ordered_levels), ordered_levels))
+  base::cat("Level mapping:\n")
+  base::print(stats::setNames(base::seq_along(ordered_levels), ordered_levels))
 
   return(data)
 }
