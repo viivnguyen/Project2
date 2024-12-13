@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(Stat108Project2)
+library(asianamsurvey)
 
-test_check("Stat108Project2")
+test_check("asianamsurvey")
