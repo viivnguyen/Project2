@@ -42,6 +42,14 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
     data <- data[complete.cases(data[c(x, y)]), ]
   }
 
+  # Check if columns exist
+  if (!x %in% names(data)) {
+    stop("Column '", x, "' not found in data")
+  }
+  if (!y %in% names(data)) {
+    stop("Column '", y, "' not found in data")
+  }
+
   # Create base plot
   mapping <- ggplot2::aes(
     x = .data[[x]],
