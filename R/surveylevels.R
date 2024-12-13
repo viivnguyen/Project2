@@ -8,30 +8,41 @@
 #'
 #' @examples
 
-convert_to_ordered_numeric <- function(data, column, level_order) {
-  # Check if the column exists
-  if (!column %in% colnames(data)) {
-    stop("Column not found in the dataset.")
+surveylevels3 <- function(data, column_name, ordered_levels) {
+  # Check if the column exists in the data
+  if (!column_name %in% colnames(data)) {
+    stop(paste("Column", column_name, "not found in the dataframe."))
   }
 
-  # Ensure the column is a factor or character
-  if (!is.character(data[[column]]) && !is.factor(data[[column]])) {
-    stop("Column must be a factor or character type.")
+  # Drop rows with NA values in the specified column
+  data <- data[!is.na(data[[column_name]]), ]
+
+  # Extract the column
+  column_values <- data[[column_name]]
+
+  # Validate that all unique values in the column match the provided levels
+  unique_values <- unique(column_values)
+  if (!all(unique_values %in% ordered_levels)) {
+    stop("Some values in the column do not match the provided ordered levels.")
   }
 
-  # Determine the order of levels
-  if (is.null(level_order)) {
-    # If no custom order provided, use the natural order of unique levels
-    level_order <- sort(unique(data[[column]]))
-  }
+  # Map the levels to numeric values based on the provided order
+  level_map <- setNames(seq_along(ordered_levels), ordered_levels)
 
-  # Convert to factor with levels ordered as specified
-  data[[column]] <- factor(data[[column]], levels = level_order, ordered = TRUE)
+  # Replace values in the column with their numeric equivalents
+  data[[column_name]] <- as.numeric(factor(column_values, levels = ordered_levels, labels = seq_along(ordered_levels)))
 
-  # Convert the ordered factor to numeric
-  data[[column]] <- as.numeric(data[[column]])
+  # Replace the column in the dataframe with the numeric version
+  #data[[column_name]] <- numeric_column
 
-  # Return the modified dataset
-  return(data)
+  # Print the mapping for transparency
+  cat("Level mapping:\n")
+  print(level_map)
+
+  invisible(NULL)
 }
 
+# Example usage:
+# Assuming the column "English Speaking" has values like "Not at all", "Not well", "Very well", etc.
+# data <- convert_to_numeric_levels(data, "English Speaking",
+#                                   c("Not at all", "Not well", "Very well", "Well"))
