@@ -192,3 +192,4 @@ These visualizations help identify patterns and relationships in the survey data
 1. Identify disparities across different demographic groups
 2. Understand the relationship between socioeconomic factors and quality of life
 3. Explore how language proficiency relates to various outcomes
+4. Examine the intersection of multiple factors affecting well-being
