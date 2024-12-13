@@ -83,4 +83,4 @@
 #' @source Final Report of the Asian American Quality of Life (AAQoL) Survey:
 #' \url{https://catalog.data.gov/dataset/final-report-of-the-asian-american-quality-of-life-aaqol}
 
-"asian_american"
+#' @export "asian_american"
