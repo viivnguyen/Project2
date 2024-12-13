@@ -7,20 +7,74 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  warning = FALSE,
-  message = FALSE,
-  out.width = "100%"
+# Understanding Quality of Life Among Asian Americans: A Case Study Using `Stat108Project2`
+
+## Introduction
+
+Asian Americans are the fastest-growing minority group in the United States, with a phenomenal growth rate of 42.9% between 2000 and 2010, compared to the U.S. total population growth of only 9.3%. According to the U.S. Census Bureau (2012), Asian Americans make up 5.6% of the total U.S. population and are projected to reach 10% by 2050. This rapid growth, combined with the unique challenges faced by new immigrant groups, highlights the need to better understand the social and health needs of Asian Americans.
+
+The `asian_american` dataset in this package provides valuable insights into these issues. It includes detailed demographic, household, employment, emotional well-being, and social/community resource information. Using this dataset, researchers can explore critical questions about quality of life, identify disparities, and inform public health and social policies.
+
+This vignette showcases how the `Stat108Project2` package simplifies the analysis of survey data using this dataset. We'll explore its tools for cleaning, summarizing, and visualizing survey data, with examples drawn from the `asian_american` dataset.
+
+---
+
+## Case Study: Exploring Income and Quality of Life
+
+### Problem Statement
+
+Our goal is to understand how demographic factors like education and English proficiency influence income and quality of life among Asian Americans. Specifically, we'll explore:
+- How income varies across education levels.
+- Whether English proficiency affects quality-of-life metrics.
+
+---
+
+## Step 1: Data Preparation and Cleaning
+
+### Inspecting the Dataset
+
+First, let's load the dataset and inspect its structure.
+
+```{r}
+library(Stat108Project2)
+
+# Load the dataset
+data(asian_american)
+
+# View the first few rows
+head(asian_american)
+```
+
+The dataset includes variables like education, income, english_speaking, and quality_of_life. Many of these variables are categorical and need to be converted for analysis.
+
+### Converting Survey Responses to Numeric
+The surveylevels function is helpful for converting categorical responses into numeric scales. For example, we can transform English proficiency ratings into numeric values.
+
+```{r}
+# Convert English proficiency levels to numeric
+response_scale <- c("Not at all", "Not well", "Well", "Very well")
+
+asian_american <- surveylevels(
+  asian_american,
+  column = "english_speaking",
+  ordered_levels = response_scale
 )
 ```
 
 
-```{r setup, include=FALSE}
-library(Stat108Project2)
-library(dplyr)
-library(ggplot2)
-theme_set(theme_minimal())
+## Step 2: Summarizing Survey Data
+### Summarizing Education Levels and Income
+Using the proptable function, we can calculate the proportion of respondents in each education category.
+
+```{r}
+# Proportion table for education and income
+education_income_table <- proptable(
+  asian_american,
+  x = "education",
+  y = "income",
+  type = "proportion"
+)
+
+# View the summary
+print(education_income_table)
 ```
