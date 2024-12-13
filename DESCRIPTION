@@ -1,12 +1,16 @@
 Package: asianamsurvey
-Title: What the Package Does (One Line, Title Case)
+Title: Streamline Survey Data Analysis
 Version: 0.0.0.9000
 Authors@R: c(
     person("Vivian", "Nguyen", , "vtnguyen@college.harvard.edu", role = "cre"),
     person("Ariel", "Wang", , "arielwang1@college.harvard.edu", role = "aut"),
     person("Namirah", "Quadir", , "namirahquadir@college.harvard.edu", role = "aut")
   )
-Description: What the package does (one paragraph).
+Description: The `asianamsurvey` package is designed to streamline the analysis of survey data, 
+with a specific focus on demographic and self-reported response surveys. It includes 
+tools for data cleaning, transformation, visualization, and summarization, making 
+it easier for researchers and statisticians to extract meaningful insights from 
+complex survey datasets.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -24,3 +28,4 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
