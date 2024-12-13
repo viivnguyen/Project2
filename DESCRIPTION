@@ -6,11 +6,7 @@ Authors@R: c(
     person("Ariel", "Wang", , "arielwang1@college.harvard.edu", role = "aut"),
     person("Namirah", "Quadir", , "namirahquadir@college.harvard.edu", role = "aut")
   )
-Description: The `asianamsurvey` package is designed to streamline the analysis of survey data, 
-with a specific focus on demographic and self-reported response surveys. It includes 
-tools for data cleaning, transformation, visualization, and summarization, making 
-it easier for researchers and statisticians to extract meaningful insights from 
-complex survey datasets.
+Description: The `asianamsurvey` package is designed to streamline the analysis of survey data, with a specific focus on demographic and self-reported response surveys. It includes tools for data cleaning, transformation, visualization, and summarization, making it easier for researchers and statisticians to extract meaningful insights from complex survey datasets.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
