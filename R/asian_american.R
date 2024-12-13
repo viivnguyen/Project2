@@ -1,12 +1,11 @@
 #' Asian American Quality of Life Survey Dataset
 #'
-#' This dataset comes from the Final Report of the Asian American Quality of Life (AAQoL) survey.
+#' This cleaned dataset comes from the Final Report of the Asian American Quality of Life (AAQoL) survey.
 #' It includes detailed demographic, household, employment, immigration, emotional well-being, and
 #' social/community resource information for respondents, with a focus on Asian American populations from Austin, Texas.
 #'
 #' @format A data frame with rows representing individual survey respondents and columns corresponding
 #' to the variables below:
-#' \describe{
 #' \describe{
 #'   \item{survey_id}{Unique identifier for each survey respondent.}
 #'   \item{age}{Age of the respondent (numeric).}
@@ -83,4 +82,4 @@
 #' @source Final Report of the Asian American Quality of Life (AAQoL) Survey:
 #' \url{https://catalog.data.gov/dataset/final-report-of-the-asian-american-quality-of-life-aaqol}
 
-#' @export "asian_american"
+#' @export (asian_american)
