@@ -19,7 +19,7 @@
 #' data <- data.frame(
 #'   response = c("Yes", "No", "Yes", NA)
 #' )
-#' makenumeric(data, "response", 
+#' makenumeric(data, "response",
 #'             true_values = "Yes",
 #'             false_value = 0)
 #'
@@ -43,50 +43,51 @@
 #'             na_value = -1)
 
 makenumeric <- function(data, column, true_values = NULL, true_number = 1,
-                       false_value = NULL, na_value = NA_real_) {
+                        false_value = NULL, na_value = NA) {
   # Input validation
-  if (!is.data.frame(data)) {
-    stop("Input 'data' must be a data frame.")
+  if (!base::is.data.frame(data)) {
+    base::stop("Input 'data' must be a data frame.")
   }
-  
-  if (!column %in% colnames(data)) {
-    stop("Column '", column, "' not found in the dataset.")
+
+  if (!column %in% base::colnames(data)) {
+    base::stop("Column '", column, "' not found in the dataset.")
   }
-  
-  if (!is.character(data[[column]]) && !is.factor(data[[column]])) {
-    stop("Column '", column, "' must be character or factor.")
+
+  if (!base::is.character(data[[column]]) && !base::is.factor(data[[column]])) {
+    base::stop("Column '", column, "' must be character or factor.")
   }
-  
-  if (!is.null(true_values) && !is.character(true_values)) {
-    stop("'true_values' must be a character vector or NULL.")
+
+  if (!base::is.null(true_values) && !base::is.character(true_values)) {
+    base::stop("'true_values' must be a character vector or NULL.")
   }
-  
+
   # Extract and convert column to character
-  variable <- as.character(data[[column]])
-  
+  variable <- base::as.character(data[[column]])
+
   # Create numeric vector for results
-  numeric_variable <- rep(NA_real_, length(variable))
-  
+  numeric_variable <- base::rep(NA, base::length(variable))
+
   # Apply conversions in specific order
-  if (!is.null(true_values)) {
+  if (!base::is.null(true_values)) {
     # Convert true values first
     numeric_variable[variable %in% true_values] <- true_number
-    
+
     # Apply false value to non-NA, non-true values if specified
-    if (!is.null(false_value)) {
-      numeric_variable[!is.na(variable) & !(variable %in% true_values)] <- false_value
+    if (!base::is.null(false_value)) {
+      numeric_variable[!base::is.na(variable) & !(variable %in% true_values)] <- false_value
     }
   } else {
     # If no true_values specified, attempt direct numeric conversion
-    numeric_variable <- suppressWarnings(as.numeric(variable))
+    numeric_variable <- base::suppressWarnings(base::as.numeric(variable))
   }
-  
+
   # Handle NA values last
-  if (!is.na(na_value)) {
-    numeric_variable[is.na(variable)] <- na_value
+  if (!base::is.na(na_value)) {
+    numeric_variable[base::is.na(variable)] <- na_value
   }
-  
+
   # Update the column and return
   data[[column]] <- numeric_variable
   return(data)
 }
+

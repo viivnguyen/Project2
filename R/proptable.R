@@ -15,8 +15,8 @@
 #'
 #' @examples
 #' # Example 1: Mouse trial data - Treatment outcomes
-#' proptable(mouse_birth, 
-#'          x = Treatment, 
+#' proptable(mouse_birth,
+#'          x = Treatment,
 #'          y = Sex,
 #'          include_total = TRUE)
 #'
@@ -36,47 +36,44 @@
 #' @importFrom rlang enquo
 #' @importFrom tidyr pivot_wider
 
-proptable <- function(data, x, y, 
-                     type = "proportion",
-                     digits = 2,
-                     include_total = FALSE) {
-  
+proptable <- function(data, x, y,
+                      type = "proportion",
+                      digits = 2,
+                      include_total = FALSE) {
+
   # Input validation
-  if (!is.data.frame(data)) {
-    stop("Input 'data' must be a data frame")
+  if (!base::is.data.frame(data)) {
+    base::stop("Input 'data' must be a data frame")
   }
-  
+
   if (!type %in% c("proportion", "count")) {
-    stop("'type' must be either 'proportion' or 'count'")
+    base::stop("'type' must be either 'proportion' or 'count'")
   }
-  
+
   if (digits < 0) {
-    stop("'digits' must be a non-negative number")
+    base::stop("'digits' must be a non-negative number")
   }
-  
+
   # Calculate base counts
-  result <- data %>%
-    count({{ x }}, {{ y }}) %>%
-    group_by({{ x }}) %>%
-    mutate(prop = round(n/sum(n), digits)) %>%
-    ungroup()
-  
+  result <- dplyr::count(data, {{ x }}, {{ y }}) %>%
+    dplyr::group_by({{ x }}) %>%
+    dplyr::mutate(prop = base::round(n/base::sum(n), digits)) %>%
+    dplyr::ungroup()
+
   # Add totals if requested
   if (include_total) {
     result <- result %>%
-      group_by({{ x }}) %>%
-      mutate(total = sum(n)) %>%
-      ungroup()
+      dplyr::group_by({{ x }}) %>%
+      dplyr::mutate(total = base::sum(n)) %>%
+      dplyr::ungroup()
   }
-  
+
   # Return either proportions or counts
   if (type == "proportion") {
-    result <- result %>%
-      select(-n)
+    result <- dplyr::select(result, -n)
   } else {
-    result <- result %>%
-      select(-prop)
+    result <- dplyr::select(result, -prop)
   }
-  
+
   return(result)
 }

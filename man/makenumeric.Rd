@@ -10,34 +10,55 @@ makenumeric(
   true_values = NULL,
   true_number = 1,
   false_value = NULL,
-  na_value = NA_real_
+  na_value = NA
 )
 }
 \arguments{
-\item{data}{A data frame or tibble containing the dataset.}
+\item{data}{A data frame containing the dataset}
 
-\item{column}{A character string specifying the column name to be converted.}
+\item{column}{A character string specifying the column name to be converted}
 
-\item{true_values}{A character vector of values to be replaced with \code{true_number}. Default is \code{NULL}.}
+\item{true_values}{A character vector of values to be mapped to \code{true_number} (default: NULL)}
 
-\item{true_number}{The numeric value corresponding to \code{true_values}. Default is \code{1}.}
+\item{true_number}{The numeric value for \code{true_values} (default: 1)}
 
-\item{false_value}{A single numeric value for values not in \code{true_values}. Default is \code{NULL} (no replacement).}
+\item{false_value}{The numeric value for non-true values (default: NULL)}
 
-\item{na_value}{A numeric value to replace \code{NA} values. Default is \code{NA_real_} (no replacement for missing values).}
+\item{na_value}{The numeric value for NA values (default: NA_real_)}
 }
 \value{
-A data frame with the specified column converted to numeric.
+A data frame with the specified column converted to numeric values
 }
 \description{
-This function converts a specified column in a dataset to numeric, with optional mappings for "true," "false," and \code{NA} values.
+This function converts a specified column in a dataset to numeric values using custom mappings.
+It is particularly useful for converting categorical or ordinal data to numeric format, with
+flexible handling of true/false conditions and missing values.
 }
 \examples{
-data <- data.frame(spouse = c("Living with spouse", "Not living with spouse", "Living with spouse"))
-data <- makenumeric(data, column = "spouse", true_values = c("Living with spouse"), true_number = 1, false_value = 0)
-print(data)
+# Example 1: Basic true/false conversion
+data <- data.frame(
+  response = c("Yes", "No", "Yes", NA)
+)
+makenumeric(data, "response",
+            true_values = "Yes",
+            false_value = 0)
 
-data2 <- data.frame(spouse = c("Living with spouse", NA, "Not living with spouse"))
-data2 <- makenumeric(data2, column = "spouse", true_values = c("Living with spouse"), true_number = 1, false_value = 0, na_value = -1)
-print(data2)
+# Example 2: Multiple true values
+survey <- data.frame(
+  satisfaction = c("Very Satisfied", "Satisfied", "Neutral", NA)
+)
+makenumeric(survey, "satisfaction",
+            true_values = c("Very Satisfied", "Satisfied"),
+            true_number = 1,
+            false_value = 0,
+            na_value = -99)
+
+# Example 3: Converting living situation
+household <- data.frame(
+  spouse = c("Living with spouse", "Not living with spouse", NA)
+)
+makenumeric(household, "spouse",
+            true_values = "Living with spouse",
+            false_value = 0,
+            na_value = -1)
 }

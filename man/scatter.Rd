@@ -63,38 +63,3 @@ A \code{ggplot} object representing the scatter plot
 This function generates customizable scatter plots for various types of data,
 including mouse trial data and survey data.
 }
-\examples{
-# Example 1: Mouse trial data
-weight_long <- tidyr::pivot_longer(mouse_weight,
-                                  cols = c("Body Weight 1", "Body Weight 2", "Body Weight 3"),
-                                  names_to = "Measurement",
-                                  values_to = "Weight") \%>\%
-  dplyr::left_join(mouse_birth[, c("ID", "Treatment")], by = "ID")
-
-scatter(weight_long,
-        x = "Date_Weight_1",
-        y = "Weight",
-        color = "Treatment",
-        title = "Mouse Weights Over Time")
-
-# Example 2: Asian American survey data - Income vs Age
-scatter(asian_american,
-        x = "age",
-        y = "income",
-        color = "education",
-        title = "Income by Age and Education Level",
-        xlab = "Age (years)",
-        ylab = "Income",
-        add_trendline = TRUE)
-
-# Example 3: Survey data - Life Satisfaction
-scatter(asian_american,
-        x = "duration_of_residency",
-        y = "life_satisfaction",
-        color = "english_speaking",
-        title = "Life Satisfaction by Duration of Residency",
-        xlab = "Years in US",
-        ylab = "Life Satisfaction Score",
-        facet_by = "education")
-
-}
