@@ -2,13 +2,31 @@
 % Please edit documentation in R/plot.R
 \name{scatter}
 \alias{scatter}
-\title{Title}
+\title{Scatter Plot Function}
 \usage{
-scatter(data, x, y, color, alpha, ...)
+scatter(data, x, y, color, ...)
 }
 \arguments{
-\item{x}{}
+\item{data}{A data frame containing the data to be plotted.}
+
+\item{x}{The name of the variable to be used on the x-axis (should be numeric).}
+
+\item{y}{The name of the variable to be used on the y-axis (should be numeric).}
+
+\item{color}{The name of the categorical variable to be used for color (should be a factor).}
+
+\item{...}{Additional arguments to be passed to \code{ggplot2::geom_point()}.}
+}
+\value{
+A \code{ggplot} object representing the scatter plot.
 }
 \description{
-Title
+This function generates a scatter plot using ggplot2, with customizable aesthetics and validation of input data types.
+It checks that the x and y variables are numeric and that the color variable is a factor.
+}
+\examples{
+# Example usage of the scatter function
+data <- data.frame(x = rnorm(100), y = rnorm(100), color = factor(sample(c("A", "B"), 100, replace = TRUE)))
+scatter(data, x = "x", y = "y", color = "color")
+
 }
