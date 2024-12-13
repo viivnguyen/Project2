@@ -60,11 +60,11 @@
 #' @import ggplot2
 #' @import dplyr
 
-scatter <- function(data, x, y, color, title = NULL, xlab = NULL, ylab = NULL,
-                   point_size = 2, point_alpha = 0.6, add_trendline = FALSE,
-                   add_threshold = FALSE, threshold_value = NULL,
-                   threshold_label = "Threshold",
-                   facet_by = NULL, theme_style = "light", ...) {
+scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = NULL,
+                    point_size = 2, point_alpha = 0.6, add_trendline = FALSE,
+                    add_threshold = FALSE, threshold_value = NULL,
+                    threshold_label = "Threshold",
+                    facet_by = NULL, theme_style = "light", ...) {
 
   # Input validation
   if (!is.data.frame(data)) {
@@ -78,8 +78,20 @@ scatter <- function(data, x, y, color, title = NULL, xlab = NULL, ylab = NULL,
   }
 
   # Create base plot
-  p <- ggplot2::ggplot(data = data) +
-    ggplot2::aes(x = .data[[x]], y = .data[[y]], color = .data[[color]]) +
+  mapping <- ggplot2::aes(
+    x = .data[[x]],
+    y = .data[[y]]
+  )
+
+  if (!is.null(color)) {
+    mapping <- ggplot2::aes(
+      x = .data[[x]],
+      y = .data[[y]],
+      color = .data[[color]]
+    )
+  }
+
+  p <- ggplot2::ggplot(data = data, mapping = mapping) +
     ggplot2::geom_point(size = point_size, alpha = point_alpha, ...) +
     ggplot2::labs(
       title = title,
@@ -96,15 +108,13 @@ scatter <- function(data, x, y, color, title = NULL, xlab = NULL, ylab = NULL,
   # Add threshold line if requested
   if (add_threshold && !is.null(threshold_value)) {
     p <- p +
-      ggplot2::geom_hline(yintercept = threshold_value,
-                         linetype = "dashed",
-                         color = "red") +
+      ggplot2::geom_hline(yintercept = threshold_value, linetype = "dashed", color = "red") +
       ggplot2::annotate("text",
-                       x = min(data[[x]], na.rm = TRUE),
-                       y = threshold_value,
-                       label = threshold_label,
-                       vjust = -0.5,
-                       color = "red")
+                        x = min(data[[x]], na.rm = TRUE),
+                        y = threshold_value,
+                        label = threshold_label,
+                        vjust = -0.5,
+                        color = "red")
   }
 
   # Add faceting if requested
@@ -129,40 +139,5 @@ scatter <- function(data, x, y, color, title = NULL, xlab = NULL, ylab = NULL,
   )
 
   return(p)
-}
-
-
-
-
-viv_scatter <- function(data, x, y, color_by = NULL, alpha = 1){
-
-  # Determine if x is numeric
-  x_class <- data %>%
-    pull({{ x }}) %>%
-    is.numeric()
-  stopifnot(x_class)
-
-  # Determine if y is numeric
-  y_class <- data %>%
-    pull({{ y }}) %>%
-    is.numeric()
-  stopifnot(y_class)
-
-  # Check that color_by column exists in the data
-  if (!missing(color_by)) {
-    color_by_name <- as.character(match.call()$color_by)
-    if (!color_by_name %in% names(data)) {
-      stop(paste(color_by_name, "is not in the data frame."))
-    }
-  }
-
-  # Check that alpha is between 0 and 1
-  if (alpha > 1 || alpha < 0) {
-    stop(paste(alpha, "is not a valid alpha. Alpha must be between 0 and 1"))
-  }
-
-  # Produce scatter plot
-  ggplot(data, aes(x = {{ x }}, y = {{ y }}, color = {{ color_by }})) +
-    geom_point(alpha = alpha)
 }
 
