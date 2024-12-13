@@ -1,0 +1,19 @@
+---
+title: "makenumeric"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{makenumeric}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Stat108Project2)
+```
