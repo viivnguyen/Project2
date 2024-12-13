@@ -16,7 +16,7 @@ test_that("makenumeric handles various scenarios correctly", {
   expect_error(makenumeric(data, column = "nonexistent"), "Column 'nonexistent' not found in the dataset.")
 
   # Test invalid column type error
-  expect_error(makenumeric(data.frame(spouse = 1:3), column = "spouse"), "Column '", column, "' must be character or factor.")
+  expect_error(makenumeric(data.frame(spouse = 1:3), column = "spouse"), "Column 'spouse' must be character or factor.")
 
   # Test with no true_values provided
   data_no_true <- data.frame(

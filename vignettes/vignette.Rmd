@@ -15,7 +15,7 @@ Asian Americans are the fastest-growing minority group in the United States, wit
 
 The `asian_american` dataset in this package provides valuable insights into these issues. It includes detailed demographic, household, employment, emotional well-being, and social/community resource information. Using this dataset, researchers can explore critical questions about quality of life, identify disparities, and inform public health and social policies.
 
-This vignette showcases how the `Stat108Project2` package simplifies the analysis of survey data using this dataset. We'll explore its tools for cleaning, summarizing, and visualizing survey data, with examples drawn from the `asian_american` dataset.
+This vignette showcases how the `asianamsurvey` package simplifies the analysis of survey data using this dataset. We'll explore its tools for cleaning, summarizing, and visualizing survey data, with examples drawn from the `asian_american` dataset.
 
 ---
 
@@ -36,7 +36,7 @@ Our goal is to understand how demographic factors like education and English pro
 First, let's load the dataset and inspect its structure.
 
 ```{r}
-library(Stat108Project2)
+library(asianamsurvey)
 
 # Load the dataset
 data(asian_american)
@@ -77,4 +77,34 @@ education_income_table <- proptable(
 
 # View the summary
 print(education_income_table)
+```
+
+## Step 3: Converting variables to numeric
+### Converting binary survey variables with inconsistent results to numeric
+Using the `makenumeric` function, we can transform binary survey variables into numeric format to facilitate calculations, such as determining the proportion of respondents living in various household arrangements.
+
+In this survey, the options for how the respondent is living are in binary variables, for example, in "spouse", responses are either NA, 0 if not living with spouse, or "Living with spouse" if they are. Most of these are character class, but some are numeric, like "grandparents" or "other relative", so we want to convert them all to binary numeric variables for easy comparison. The `makenumeric` function allows you to specify the variable you want to convert and define the value to treat as `TRUE` (e.g., "Living with spouse"), which is then assigned a numeric value of your choosing (e.g., `1`). You can also specify how to handle other responses (e.g., assign `0` to `FALSE` values) and how to handle `NA` values, which are defaulted to remain the same. This allows for choice, such as if you were handling a different set of data where you want a different true value, like "Dead" in describing mouse weight, to equal "0" instead of "1".
+
+
+```{r}
+# Wrangle data to make living with no one variable binary and numeric
+asian_american <- makenumeric(asian_american, "no_one", "Living with no one")
+
+# Wrangle data to make living with spouse variable binary and numeric
+asian_american <- makenumeric(asian_american, "spouse", "Living with spouse")
+
+# Wrangle data to make living with children variable binary and numeric
+asian_american <- makenumeric(asian_american, "children", "Living with children")
+
+# Wrangle data to make living with grandchildren variable binary and numeric
+asian_american <- makenumeric(asian_american, "grand_children", "Living with grandchildren")
+
+# Wrangle data to make living with parent variable binary and numeric
+asian_american <- makenumeric(asian_american, "parent", "Living with parents")
+
+# Wrangle data to make living with siblings variable binary and numeric
+asian_american <- makenumeric(asian_american, "siblings", "Living with brother/sister")
+
+# Wrangle data to make living with friends variable binary and numeric
+asian_american <- makenumeric(asian_american, "friends", "Living with other friends/roommates")
 ```

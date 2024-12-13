@@ -1,17 +1,15 @@
 #' Convert Column to Numeric with Optional Custom Mapping
 #'
-#' This function converts a specified column in a dataset to numeric values using custom mappings.
-#' It is particularly useful for converting categorical or ordinal data to numeric format, with
-#' flexible handling of true/false conditions and missing values.
+#' This function converts a specified column in a dataset to numeric, with optional mappings for "true," "false," and `NA` values.
 #'
-#' @param data A data frame containing the dataset
-#' @param column A character string specifying the column name to be converted
-#' @param true_values A character vector of values to be mapped to `true_number` (default: NULL)
-#' @param true_number The numeric value for `true_values` (default: 1)
-#' @param false_value The numeric value for non-true values (default: NULL)
-#' @param na_value The numeric value for NA values (default: NA_real_)
+#' @param data A data frame or tibble containing the dataset.
+#' @param column A character string specifying the column name to be converted.
+#' @param true_values A vector of character values to be replaced with `true_number`. Default is `NULL`.
+#' @param true_number The numeric value corresponding to `true_values`. Default is `1`.
+#' @param false_value The numeric value for values not in `true_values`. Default is `NULL` (no change).
+#' @param na_value The numeric value to replace `NA` values. Default is `NA`.
 #'
-#' @return A data frame with the specified column converted to numeric values
+#' @return A data frame with the specified column converted to numeric values.
 #' @export
 #'
 #' @examples
@@ -42,51 +40,34 @@
 #'             false_value = 0,
 #'             na_value = -1)
 
-makenumeric <- function(data, column, true_values = NULL, true_number = 1,
-                        false_value = NULL, na_value = NA) {
-  # Input validation
-  if (!base::is.data.frame(data)) {
-    base::stop("Input 'data' must be a data frame.")
+makenumeric <- function(data, column, true_values = NULL, true_number = 1, false_value = NULL, na_value = NA) {
+  # Check if the column exists
+  if (!is.element(column, colnames(data))) {
+    stop("Column not found in the dataset.")
   }
 
-  if (!column %in% base::colnames(data)) {
-    base::stop("Column '", column, "' not found in the dataset.")
+  # Extract the column as a character vector
+  variable <- as.character(data[[column]])
+
+  # Apply true value conversion if specified
+  if (!is.null(true_values)) {
+    variable[variable %in% true_values] <- true_number
   }
 
-  if (!base::is.character(data[[column]]) && !base::is.factor(data[[column]])) {
-    base::stop("Column '", column, "' must be character or factor.")
+  # Convert to numeric
+  numeric_variable <- suppressWarnings(as.numeric(variable))
+
+  # Handle NA replacements
+  if (!is.na(na_value)) {
+    numeric_variable[is.na(variable)] <- na_value
   }
 
-  if (!base::is.null(true_values) && !base::is.character(true_values)) {
-    base::stop("'true_values' must be a character vector or NULL.")
+  # Apply false value replacement if specified
+  if (!is.null(false_value)) {
+    numeric_variable[is.na(numeric_variable)] <- false_value
   }
 
-  # Extract and convert column to character
-  variable <- base::as.character(data[[column]])
-
-  # Create numeric vector for results
-  numeric_variable <- base::rep(NA, base::length(variable))
-
-  # Apply conversions in specific order
-  if (!base::is.null(true_values)) {
-    # Convert true values first
-    numeric_variable[variable %in% true_values] <- true_number
-
-    # Apply false value to non-NA, non-true values if specified
-    if (!base::is.null(false_value)) {
-      numeric_variable[!base::is.na(variable) & !(variable %in% true_values)] <- false_value
-    }
-  } else {
-    # If no true_values specified, attempt direct numeric conversion
-    numeric_variable <- base::suppressWarnings(base::as.numeric(variable))
-  }
-
-  # Handle NA values last
-  if (!base::is.na(na_value)) {
-    numeric_variable[base::is.na(variable)] <- na_value
-  }
-
-  # Update the column and return
+  # Update and return the dataset
   data[[column]] <- numeric_variable
   return(data)
 }
