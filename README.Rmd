@@ -20,12 +20,12 @@ options(repos = c(CRAN = "https://cran.r-project.org"))
 The `asianamsurvey` package is designed to streamline the analysis of survey data, with a specific focus on demographic and self-reported response surveys. It includes tools for data cleaning, transformation, visualization, and summarization, making it easier for researchers and statisticians to extract meaningful insights from complex survey datasets.
 
 ## Why Use This Package?
-- Create customizable scatter plots for both survey data
+- Create customizable scatter plots for survey data
 - Generate proportion tables for categorical variables
 - Handle different types of data structures efficiently
 - Convert survey responses to numeric scales systematically
 - Process categorical variables with custom numeric mappings
-- Built-in support for both mouse trial data and survey data analysis
+- Built-in support for survey data analysis
 - Comprehensive error handling and input validation
 - Consistent and well-documented interface
 
@@ -114,10 +114,24 @@ data <- makenumeric(data,
   - Automatic type conversion
   - Comprehensive error handling
 
-## Data
-The package includes two example datasets:
-1. Mouse trial data with weight measurements and treatment groups
-2. Asian American survey data with demographic and socioeconomic variables
+## Dataset: asian_american
+The package includes one  example datasets: Asian American survey data with demographic and socioeconomic variables
+### Description:
+This dataset contains survey responses from the "Asian American Quality of Life" study conducted in Austin, capturing demographic, household, and quality-of-life metrics to assess the needs and preferences of Asian American communities. We have wrangled it so as to only include information regarding their reflections on their immigration and acculturation experiences, emotional well-being, and access to social and community resources.
+
+- **Overview**:
+  - Entries: 2,609
+  - Columns: 231
+  - Purpose: Analyze and improve quality of life for Asian American populations.
+
+- **Key Information**:
+  - Demographics: Age, Gender, Ethnicity, Marital Status, Education Level
+  - Immigration and Acculturation: English Proficiency, Cultural Warning
+  - Emotional Well-Being: Thoughts on Depression and Related Aspects
+  - Social and Community Resources: Closeness to Family and Friends
+
+### Source:
+Data is from the "Asian American Quality of Life" study by the City of Austin.
 
 ## Getting Help
 For more detailed information about any function, use the R help system:
