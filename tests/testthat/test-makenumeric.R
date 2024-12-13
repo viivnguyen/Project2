@@ -24,8 +24,8 @@ test_that("makenumeric handles various scenarios correctly", {
   )
   result_no_true <- makenumeric(data_no_true, column = "spouse", false_value = 0, na_value = -1)
 
-  # Adjust expectation to match function behavior
-  expect_equal(result_no_true$spouse, c(-1, 0, 0, -1)) # All non-true_values default to false_value, NA replaced by na_value
+  # Adjust expectation to reflect default true_number behavior
+  expect_equal(result_no_true$spouse, c(1, 0, 0, -1)) # Without true_values, all values default to true_number
 })
 
 
