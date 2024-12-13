@@ -14,19 +14,13 @@
 #' @export
 #'
 #' @examples
-#' # Example 1: Mouse trial data - Treatment outcomes
-#' proptable(mouse_birth,
-#'          x = Treatment,
-#'          y = Sex,
-#'          include_total = TRUE)
-#'
-#' # Example 2: Survey data - Education by English proficiency
+#' # Example 1: Survey data - Education by English proficiency
 #' proptable(asian_american,
 #'          x = education,
 #'          y = english_speaking,
 #'          digits = 3)
 #'
-#' # Example 3: Get counts instead of proportions
+#' # Example 2: Get counts instead of proportions
 #' proptable(asian_american,
 #'          x = marital_status,
 #'          y = english_difficulties,
