@@ -8,7 +8,7 @@ scatter(
   data,
   x,
   y,
-  color,
+  color = NULL,
   title = NULL,
   xlab = NULL,
   ylab = NULL,

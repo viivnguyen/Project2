@@ -16,7 +16,7 @@ asian_american <- dataset |>
     survey_id, age, gender, ethnicity, marital_status, education,
     # House Hold
     household_size, no_one, spouse, children, grand_children, parent, grandparent,
-    siblings, other_relative, friends, other, other_description,
+    siblings, other_relative, friends, other,
     # Employment/Salary
     full_time_employment,part_time_employment, self_employed_full_time,
     self_employed_part_time, student, homemaker, disabled, unemployed, retired,
