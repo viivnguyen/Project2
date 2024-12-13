@@ -1,12 +1,23 @@
-updated makenumeric, proptable, and started on readme. also added more t…
-…ests for each function
-765768f
-README.md
-@@ -1 +1,139 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+options(repos = c(CRAN = "https://cran.r-project.org"))
+```
+
 # asianamsurvey
 
 ## Overview
-This package provides tools for analyzing and visualizing survey data. It was developed to support data management and analysis for survey research. Specifically designed to handlesurvey responses, it offers robust data cleaning and visualization capabilities.
+The `asianamsurvey` package is designed to streamline the analysis of survey data, with a specific focus on demographic and self-reported response surveys. It includes tools for data cleaning, transformation, visualization, and summarization, making it easier for researchers and statisticians to extract meaningful insights from complex survey datasets.
 
 ## Why Use This Package?
 - Create customizable scatter plots for both survey data
