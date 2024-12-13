@@ -10,20 +10,21 @@
 #' @param digits Number of decimal places for proportions (default = 2)
 #' @param include_total Logical, whether to include row totals (default = FALSE)
 #'
-#' @return A df containing the summary statistics (counts and/or proportions)
+#' @return A data frame containing the summary statistics (counts and/or proportions)
 #' @export
 #'
 #' @examples
 #' # Example 1: Mouse trial data - Treatment outcomes
 #' proptable(mouse_birth, 
 #'          x = Treatment, 
-#'          y = Sex)
+#'          y = Sex,
+#'          include_total = TRUE)
 #'
 #' # Example 2: Survey data - Education by English proficiency
 #' proptable(asian_american,
 #'          x = education,
 #'          y = english_speaking,
-#'          include_total = TRUE)
+#'          digits = 3)
 #'
 #' # Example 3: Get counts instead of proportions
 #' proptable(asian_american,
@@ -42,21 +43,25 @@ proptable <- function(data, x, y,
   
   # Input validation
   if (!is.data.frame(data)) {
-    stop("'data' must be a data frame")
+    stop("Input 'data' must be a data frame")
   }
   
   if (!type %in% c("proportion", "count")) {
     stop("'type' must be either 'proportion' or 'count'")
   }
   
-  # calculate base counts
+  if (digits < 0) {
+    stop("'digits' must be a non-negative number")
+  }
+  
+  # Calculate base counts
   result <- data %>%
     count({{ x }}, {{ y }}) %>%
     group_by({{ x }}) %>%
     mutate(prop = round(n/sum(n), digits)) %>%
     ungroup()
   
-  # add totals if requested
+  # Add totals if requested
   if (include_total) {
     result <- result %>%
       group_by({{ x }}) %>%
@@ -64,7 +69,7 @@ proptable <- function(data, x, y,
       ungroup()
   }
   
-  # return either proportions or counts
+  # Return either proportions or counts
   if (type == "proportion") {
     result <- result %>%
       select(-n)
