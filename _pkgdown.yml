@@ -1,0 +1,7 @@
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-000000-01
+  assets:
+    figures:
+      - inst/figures/hex_asianamsurvey.png 

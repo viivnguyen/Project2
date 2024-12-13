@@ -6,3 +6,4 @@
 ^asianamsurvey\.Rcheck$
 ^asianamsurvey.*\.tar\.gz$
 ^asianamsurvey.*\.tgz$
+^data-raw/hex-sticker\.R$
