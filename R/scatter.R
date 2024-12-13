@@ -24,7 +24,6 @@
 #' @export
 #'
 #' @import ggplot2
-#' @import dplyr
 
 scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = NULL,
                     point_size = 2, point_alpha = 0.6, add_trendline = FALSE,
@@ -33,14 +32,14 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
                     facet_by = NULL, theme_style = "light", ...) {
 
   # Input validation
-  if (!base::is.data.frame(data)) {
-    base::stop("'data' must be a data frame")
+  if (!is.data.frame(data)) {
+    stop("'data' must be a data frame")
   }
 
   # Check for missing values
-  if (base::any(base::is.na(data[[x]])) || base::any(base::is.na(data[[y]]))) {
-    base::warning("Data contains missing values which will be removed")
-    data <- data[base::complete.cases(data[c(x, y)]), ]
+  if (any(is.na(data[[x]])) || any(is.na(data[[y]]))) {
+    warning("Data contains missing values which will be removed")
+    data <- data[complete.cases(data[c(x, y)]), ]
   }
 
   # Create base plot
@@ -49,7 +48,7 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
     y = .data[[y]]
   )
 
-  if (!base::is.null(color)) {
+  if (!is.null(color)) {
     mapping <- ggplot2::aes(
       x = .data[[x]],
       y = .data[[y]],
@@ -61,8 +60,8 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
     ggplot2::geom_point(size = point_size, alpha = point_alpha, ...) +
     ggplot2::labs(
       title = title,
-      x = base::ifelse(base::is.null(xlab), x, xlab),
-      y = base::ifelse(base::is.null(ylab), y, ylab),
+      x = ifelse(is.null(xlab), x, xlab),
+      y = ifelse(is.null(ylab), y, ylab),
       color = color
     )
 
@@ -72,11 +71,11 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
   }
 
   # Add threshold line if requested
-  if (add_threshold && !base::is.null(threshold_value)) {
+  if (add_threshold && !is.null(threshold_value)) {
     p <- p +
       ggplot2::geom_hline(yintercept = threshold_value, linetype = "dashed", color = "red") +
       ggplot2::annotate("text",
-                        x = base::min(data[[x]], na.rm = TRUE),
+                        x = min(data[[x]], na.rm = TRUE),
                         y = threshold_value,
                         label = threshold_label,
                         vjust = -0.5,
@@ -84,8 +83,8 @@ scatter <- function(data, x, y, color = NULL, title = NULL, xlab = NULL, ylab = 
   }
 
   # Add faceting if requested
-  if (!base::is.null(facet_by)) {
-    p <- p + ggplot2::facet_wrap(stats::as.formula(base::paste("~", facet_by)))
+  if (!is.null(facet_by)) {
+    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_by)))
   }
 
   # Apply theme

@@ -42,29 +42,29 @@ proptable <- function(data, x, y,
                       include_total = FALSE) {
 
   # Input validation
-  if (!base::is.data.frame(data)) {
-    base::stop("Input 'data' must be a data frame")
+  if (!is.data.frame(data)) {
+    stop("Input 'data' must be a data frame")
   }
 
   if (!type %in% c("proportion", "count")) {
-    base::stop("'type' must be either 'proportion' or 'count'")
+    stop("'type' must be either 'proportion' or 'count'")
   }
 
   if (digits < 0) {
-    base::stop("'digits' must be a non-negative number")
+    stop("'digits' must be a non-negative number")
   }
 
   # Calculate base counts
   result <- dplyr::count(data, {{ x }}, {{ y }}) %>%
     dplyr::group_by({{ x }}) %>%
-    dplyr::mutate(prop = base::round(n/base::sum(n), digits)) %>%
+    dplyr::mutate(prop = round(n/sum(n), digits)) %>%
     dplyr::ungroup()
 
   # Add totals if requested
   if (include_total) {
     result <- result %>%
       dplyr::group_by({{ x }}) %>%
-      dplyr::mutate(total = base::sum(n)) %>%
+      dplyr::mutate(total = sum(n)) %>%
       dplyr::ungroup()
   }
 
