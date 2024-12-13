@@ -32,9 +32,7 @@
 #'          y = english_difficulties,
 #'          type = "count")
 #'
-#' @importFrom dplyr count group_by mutate ungroup select
-#' @importFrom rlang enquo
-#' @importFrom tidyr pivot_wider
+#' @import dplyr
 
 proptable <- function(data, x, y,
                       type = "proportion",

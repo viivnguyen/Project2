@@ -14,25 +14,23 @@ makenumeric(
 )
 }
 \arguments{
-\item{data}{A data frame containing the dataset}
+\item{data}{A data frame or tibble containing the dataset.}
 
-\item{column}{A character string specifying the column name to be converted}
+\item{column}{A character string specifying the column name to be converted.}
 
-\item{true_values}{A character vector of values to be mapped to \code{true_number} (default: NULL)}
+\item{true_values}{A vector of character values to be replaced with \code{true_number}. Default is \code{NULL}.}
 
-\item{true_number}{The numeric value for \code{true_values} (default: 1)}
+\item{true_number}{The numeric value corresponding to \code{true_values}. Default is \code{1}.}
 
-\item{false_value}{The numeric value for non-true values (default: NULL)}
+\item{false_value}{The numeric value for values not in \code{true_values}. Default is \code{NULL} (no change).}
 
-\item{na_value}{The numeric value for NA values (default: NA_real_)}
+\item{na_value}{The numeric value to replace \code{NA} values. Default is \code{NA}.}
 }
 \value{
-A data frame with the specified column converted to numeric values
+A data frame with the specified column converted to numeric values.
 }
 \description{
-This function converts a specified column in a dataset to numeric values using custom mappings.
-It is particularly useful for converting categorical or ordinal data to numeric format, with
-flexible handling of true/false conditions and missing values.
+This function converts a specified column in a dataset to numeric, with optional mappings for "true," "false," and \code{NA} values.
 }
 \examples{
 # Example 1: Basic true/false conversion
