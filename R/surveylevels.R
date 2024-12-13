@@ -18,7 +18,7 @@
 #' data <- data.frame(proficiency = c("Well", "Not at all", NA, "Not well", "Very well"))
 #' response_scale <- c("Not at all", "Not well", "Well", "Very well")
 #' data <- surveylevels(data, column = "proficiency", ordered_levels = response_scale)
-#' print(data1)
+#' print(data)
 
 surveylevels <- function(data, column, ordered_levels) {
 

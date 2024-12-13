@@ -2,36 +2,35 @@
 % Please edit documentation in R/makenumeric.R
 \name{makenumeric}
 \alias{makenumeric}
-\title{Convert Specific Character Values to Numeric in a Dataset}
+\title{Convert Column to Numeric with Optional Custom Mapping}
 \usage{
 makenumeric(
   data,
   column,
-  true_values,
+  true_values = NULL,
   true_number = 1,
   false_value = NULL,
   na_value = NA
 )
 }
 \arguments{
-\item{data}{A data frame or tibble containing the dataset. This dataset should have the column you want to convert.}
+\item{data}{A data frame or tibble containing the dataset.}
 
-\item{column}{A character string specifying the column name to be converted. The column should be of class \code{character} or \code{factor}.}
+\item{column}{A character string specifying the column name to be converted.}
 
-\item{true_values}{A vector of character values that should be converted to \code{true_number}. These are the "true" categories.}
+\item{true_values}{A vector of character values to be replaced with \code{true_number}. Default is \code{NULL}.}
 
-\item{true_number}{The numeric value to replace the \code{true_values}. Default is \code{1}.}
+\item{true_number}{The numeric value corresponding to \code{true_values}. Default is \code{1}.}
 
-\item{false_value}{The numeric value to replace values that are not in \code{true_values}. Default is \code{NULL}, meaning no change.}
+\item{false_value}{The numeric value for values not in \code{true_values}. Default is \code{NULL} (no change).}
 
 \item{na_value}{The numeric value to replace \code{NA} values. Default is \code{NA}.}
 }
 \value{
-A data frame or tibble with the specified column converted to numeric values. The modified column is updated with numeric values based on the provided logic.
+A data frame with the specified column converted to numeric.
 }
 \description{
-This function converts specified character values in a given column of a dataset to numeric values, while allowing
-the user to define what the numeric values for "true", "false", and "NA" should be.
+This function converts a specified column in a dataset to numeric, with optional mappings for "true," "false," and \code{NA} values.
 }
 \examples{
 data <- data.frame(spouse = c("Living with spouse", "Not living with spouse", "Living with spouse"))

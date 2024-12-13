@@ -3,8 +3,8 @@ Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: c(
     person("Vivian", "Nguyen", , "vtnguyen@college.harvard.edu", role = "cre"),
-    person("Ariel", "Wang", , "arielwang1@college.harvard.edu", role = "cre"),
-    person("Namirah", "Quadir", , "namirahquadir@college.harvard.edu", role = "cre")
+    person("Ariel", "Wang", , "arielwang1@college.harvard.edu", role = "aut"),
+    person("Namirah", "Quadir", , "namirahquadir@college.harvard.edu", role = "aut")
   )
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
@@ -14,6 +14,7 @@ RoxygenNote: 7.3.2
 Imports: 
     devtools,
     dplyr,
+    ggplot2,
     roxygen2
 Depends: 
     R (>= 3.5)
