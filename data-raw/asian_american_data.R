@@ -1,10 +1,10 @@
 ## code to prepare `DATASET` dataset goes here
 
-dataset <- read.csv("https://data.austintexas.gov/resource/hc5t-p62z.csv")
+asian_american <- read.csv("https://data.austintexas.gov/api/views/hc5t-p62z/rows.csv?accessType=DOWNLOAD")
 
 
 # Selecting Columns of Interest
-asian_american <- dataset |>
+asian_american <- asian_american |>
   janitor::clean_names() |>
   dplyr::rename(education = "education_completed",
                 siblings = "brother_sister",
