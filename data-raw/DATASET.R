@@ -1,6 +1,6 @@
 ## code to prepare `DATASET` dataset goes here
 
-dataset <- read.csv("https://data.austintexas.gov/api/views/hc5t-p62z/rows.csv?accessType=DOWNLOAD")
+dataset <- read.csv("https://data.austintexas.gov/resource/hc5t-p62z.csv")
 
 
 # Selecting Columns of Interest
